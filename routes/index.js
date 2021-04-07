@@ -12,14 +12,11 @@ router.get('/index', function(req, res, next) {
 
 
 router.get('/test', function(req, res) {
-  console.log('1');
-  mm.getAvaliableUnits( function(err, result) {
+  mm.getAvaliableUnits( function(err, response) {
     if(err){
-      console.log('11');
       res.send(err);
     }else{
-      console.log('12');
-      res.send(result);
+      res.json(response.body);
     }
   });
 });
