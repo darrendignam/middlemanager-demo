@@ -21,7 +21,7 @@ var needle_options = {
  * @param {object} post_data - Object that will become the post vars. Use and empty object {} for post with no vars
  * @param {callback} callback_function - error and response
  */
-let post_wrapper = async function(api_function, post_data, callback){
+let post_wrapper = function(api_function, post_data, callback){
     needle.post(`${server_url}${api_function}`, post_data, needle_options, function(err, res) {
         if (err) 
         {
@@ -82,14 +82,24 @@ module.exports = {
                 }].concat(reply.map(function (site) {
                     return function (resultsArray, nextCallback) {
                         console.log("Site: " + site.siteid);
-                        post_wrapper("/api/v1/base/WAvailableUnits", { "iSite" : site.siteid }, (err, result)=>{
+                        post_wrapper("/api/v1/base/WAvailableUnits", { "iSite" : site.siteid }, (err, units)=>{
                             if(err){
                                 nextCallback(err); //something went wrong, could try to recover, but lets just err out
                             }else{
-
                                 //need to do some more processing here, or when all the callbacks have completed
                                 //For now just make a single huge object
-                                let tmp_obj = { "site" : site.SiteName, "details": site ,"units" : result }; 
+
+                                //reduce units array to unique SizeCodeIDs - could be smarter here and check the pricing too?
+                                let tmp_results = [];
+                                let hash = [];
+                                for(let i =0; i < units.length; i++){
+                                    if(!hash.includes(units[i].SizeCodeID)){
+                                        hash.push(units[i].SizeCodeID);
+                                        tmp_results.push(units[i]);
+                                    }
+                                }
+
+                                let tmp_obj = { "site" : site.SiteName, "details": site ,"units" : tmp_results }; 
                                 resultsArray.push(tmp_obj);
                                 // console.log( resultsArray );
                                 nextCallback(null, resultsArray);

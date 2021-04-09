@@ -22,7 +22,6 @@ router.get('/test', function(req, res) {
 });
 
 router.get('/test_units', function(req, res) {
-
 	mm.post_request("/api/v1/base/WGetSiteDetails", {}, function(err, response) {
 						if(err){
 							res.json(err);
@@ -34,6 +33,7 @@ router.get('/test_units', function(req, res) {
 							}
 						}
 	});
+});
 
   // mm.getAvaliableUnits({"iSite":"RI1GRWXX250320060000","iSize":"RI0ZFCRI08022018004L"}, 
   // function(err, response) {
@@ -53,7 +53,6 @@ router.get('/test_units', function(req, res) {
 	// 		}
   //   }
   // });
-});
 
 
 module.exports = router;
