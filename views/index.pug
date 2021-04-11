@@ -38,12 +38,43 @@ block content
 		.container
 			.row
 				.col-12.alert.alert-warning
-					| Below is content generated from the Space Manager database link.
-			.row
-				.col-12.alert
-					each _site,index in sites
-						div(id=index class="sites") #{_site.site}
+					| Content below generated from SpaceManager
+			
+	each _site,index in sites
+		section.space-md.bg-light
+			.container
+				.row.d-flex.justify-content-center
+					.col-12
+						.block-title
+							h2.h1.font-weight-bold= _site.name
+						p.h5= `${_site.details.Address1} - ${_site.details.PostCode}`
+					each unit,jndex in _site.units
+						if( parseFloat(unit.MonthRate) > 0 )
+							.col-md-4
+								.card.service-single.p-md-5.p-sm-3.text-center
+									.v3-row
+										p.h5.mb-2=`${parseInt(unit.PhysicalSize)}sqm`
+										p.mb-3= unit.Description
+										img.card-img(src='img/pablo-delivery.png' alt='...')
+										h3.display-3.font-weight-bold= `£${parseFloat(unit.MonthRate).toFixed(2)}`
+										p per month
+									a.btn.btn-primary(href=`/site/${unit.SiteID}/${unit.SizeCodeID}`) Find out more!
+									.mt-4
+										p.my-2.small Unit ID:
+										p.my-2.small.badge.badge-info=unit.UnitID
+										p.my-2.small Unit Number:
+										p.my-2.small.badge.badge-info=unit.UnitNumber
+										p.my-2.small Unit SizeCode:
+										p.my-2.small.badge.badge-info=unit.SizeCodeID
+							// end of pricing
+		section.space-md
+		
+		//div(id=index class="sites") #{_site.site}
 							
+
+
+	section.space-sm
+		.container
 			.row
 				.col-12.alert.alert-warning
 					| End dynamic content.

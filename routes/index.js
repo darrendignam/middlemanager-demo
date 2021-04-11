@@ -7,12 +7,19 @@ var mm = require('../utility/mm-wrapper');
 router.get('/index', function(req, res, next) {
 	mm.getAllAvaliableUnits((err,response)=>{
 		let _sites = [];
-		if(err || response.errno){
+		if(err){
 			_sites = [];
+			//probably redireect to a static verion of the website here
 		}else{
 			_sites = response;
+
+			// sort the results by price:
+			for(let i =0; i <_sites.length; i++){
+				_sites[i].units.sort((a, b) => parseFloat(a.MonthRate) - parseFloat(b.MonthRate));
+			}
 		}
 
+		//send to the renderer
 		res.render('index', {
 			page_title: "middlemanager demo site",
 			page_description: "Demo of using the middlemanager API to interact with the SpaceManager database",
