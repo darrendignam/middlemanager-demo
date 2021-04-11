@@ -81,7 +81,7 @@ module.exports = {
                     initArray(null, []);//prep an empty array for us to work with (in resultsArray)
                 }].concat(reply.map(function (site) {
                     return function (resultsArray, nextCallback) {
-                        console.log("Site: " + site.siteid);
+                        // console.log("Site: " + site.siteid);
                         post_wrapper("/api/v1/base/WAvailableUnits", { "iSite" : site.siteid }, (err, units)=>{
                             if(err){
                                 nextCallback(err); //something went wrong, could try to recover, but lets just err out
@@ -99,7 +99,7 @@ module.exports = {
                                     }
                                 }
 
-                                let tmp_obj = { "site" : site.SiteName, "details": site ,"units" : tmp_results }; 
+                                let tmp_obj = { "name" : site.SiteName, "details": site ,"units" : tmp_results }; 
                                 resultsArray.push(tmp_obj);
                                 // console.log( resultsArray );
                                 nextCallback(null, resultsArray);

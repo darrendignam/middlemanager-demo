@@ -5,8 +5,26 @@ var mm = require('../utility/mm-wrapper');
 
 /* GET home page. */
 router.get('/index', function(req, res, next) {
-  // mm.testing();
-  res.render('index', { title: 'Express' });
+	mm.getAllAvaliableUnits((err,response)=>{
+		let _sites = [];
+		if(err || response.errno){
+			_sites = [];
+		}else{
+			_sites = response;
+		}
+
+		res.render('index', {
+			page_title: "middlemanager demo site",
+			page_description: "Demo of using the middlemanager API to interact with the SpaceManager database",
+			page_path: req.path,
+			page_type: "website",
+			loggedin: (req.user) ? 1 : 0,
+			loggedin_name:  (req.user) ? req.user.nickname : '',
+			loggedin_image:  (req.user) ? req.user.profile_pic :'',
+			sites:_sites,
+		});
+	});
+
 });
 
 
