@@ -4,6 +4,10 @@ var router = express.Router();
 var mm = require('../utility/mm-wrapper');
 
 /* GET home page. */
+router.get('/', function(req, res, next) {
+	res.redirect('/index');
+});
+
 router.get('/index', function(req, res, next) {
 	mm.getAllAvaliableUnits((err,response)=>{
 		let _sites = [];
