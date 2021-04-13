@@ -32,7 +32,7 @@ block content
 					#v-pills-tabContent.tab-content
 						#v-pills-home.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='v-pills-home-tab')
 							.image-block
-								img.img-fluid(src='img/pablo-delivery.png' alt='Awesome Image')
+								img.img-fluid(src='/img/pablo-delivery.png' alt='Awesome Image')
 
 	section.space-sm
 		.container
@@ -47,15 +47,18 @@ block content
 					.col-12
 						.block-title
 							h2.h1.font-weight-bold= _site.name
-						p.h5= `${_site.details.Address1} - ${_site.details.PostCode}`
+						p.h5= `${_site.details.Address1} - ${_site.details.PostCode} -  ${_site.details.siteid}`
+
 					each unit,jndex in _site.units
 						if( parseFloat(unit.MonthRate) > 0 )
 							.col-md-4
 								.card.service-single.p-md-5.p-sm-3.text-center
 									.v3-row
-										p.h5.mb-2=`${parseInt(unit.PhysicalSize)}sqm`
+										p.h5.mb-2=`${unitData(unit.SizeCodeID).name} ${parseInt(unit.PhysicalSize)}sq.ft`
+											
 										p.mb-3= unit.Description
-										img.card-img(src='img/pablo-delivery.png' alt='...')
+										//- img.card-img(src='/img/pablo-delivery.png' alt='...')
+										img.card-img(src=unitData(unit.SizeCodeID).image alt=unitData(unit.SizeCodeID).name)
 										h3.display-3.font-weight-bold= `£${parseFloat(unit.MonthRate).toFixed(2)}`
 										p per month
 									a.btn.btn-primary(href=`/site/${unit.SiteID}/${unit.SizeCodeID}`) Find out more!
@@ -90,7 +93,7 @@ block content
 				.row.align-items-md-center
 					.col-md-6
 						.video-cover.rounded.shadow-md
-							img.img-fluid(alt='Image' src='img/pablo-downloading.png')
+							img.img-fluid(alt='Image' src='/img/pablo-downloading.png')
 
 						//- end: Video
 					.col-md-6
@@ -131,6 +134,3 @@ block footer
 				//- map.scrollWheelZoom.enable();
 			}
 		});
-
-	//- h1= title
-	//- p Welcome to #{title}

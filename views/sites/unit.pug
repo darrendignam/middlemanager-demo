@@ -3,73 +3,54 @@ extends ../layout
 block content
 
 
-	header.header.space-sm
-		.container
-			.row.d-flex.align-items-center
-				.col-lg-5
-					.content-block.font-white
-						.block-title
-							h2.h1.font-weight-bold.font-white.text-white
-								| Self-Storage
-								br
-								|  made easy.
-						//- /.block-title
-						p.font-white.text-white
-							| Duis aute irure dolor in reprehenderit in voluptate
-							br
-							|  velit esse cillum dolore eu fugiat nulla pariatur.
-						#v-pills-tab.nav.flex-column(role='tablist' aria-orientation='vertical')
-							a#v-pills-home-tab.nav-link.active.text-white(data-toggle='pill' href='#v-pills-home' role='tab' aria-controls='v-pills-home' aria-selected='true')
-								i.fa.fa-check
-								|  Refresing to get such a personal touch.
-							a#v-pills-profile-tab.nav-link.text-white(data-toggle='pill' href='#v-pills-profile' role='tab' aria-controls='v-pills-profile' aria-selected='false')
-								i.fa.fa-check
-								|  Duis aute irure dolor in reprehenderit in voluptate.
-							a#v-pills-messages-tab.nav-link.text-white(data-toggle='pill' href='#v-pills-messages' role='tab' aria-controls='v-pills-messages' aria-selected='false')
-								i.fa.fa-check
-								|  Velit esse cillum dolore eu pariatur.
-				.col-lg-7
-					#v-pills-tabContent.tab-content
-						#v-pills-home.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='v-pills-home-tab')
-							.image-block
-								img.img-fluid(src='img/pablo-delivery.png' alt='Awesome Image')
-
 	section.space-sm
 		.container
 			.row
 				.col-12.alert.alert-warning
 					| Content below generated from SpaceManager
 			
-	each _site,index in sites
-		section.space-md.bg-light
-			.container
-				.row.d-flex.justify-content-center
-					.col-12
-						.block-title
-							h2.h1.font-weight-bold= _site.name
-						p.h5= `${_site.details.Address1} - ${_site.details.PostCode}`
-					each unit,jndex in _site.units
-						if( parseFloat(unit.MonthRate) > 0 )
-							.col-md-4
-								.card.service-single.p-md-5.p-sm-3.text-center
-									.v3-row
-										p.h5.mb-2=`${parseInt(unit.PhysicalSize)}sqm`
-										p.mb-3= unit.Description
-										img.card-img(src='img/pablo-delivery.png' alt='...')
-										h3.display-3.font-weight-bold= `£${parseFloat(unit.MonthRate).toFixed(2)}`
-										p per month
-									a.btn.btn-primary(href=`/site/${unit.SiteID}/${unit.SizeCodeID}`) Find out more!
-									.mt-4
-										p.my-2.small Unit ID:
-										p.my-2.small.badge.badge-info=unit.UnitID
-										p.my-2.small Unit Number:
-										p.my-2.small.badge.badge-info=unit.UnitNumber
-										p.my-2.small Unit SizeCode:
-										p.my-2.small.badge.badge-info=unit.SizeCodeID
-							// end of pricing
-		section.space-md
-		
-		//div(id=index class="sites") #{_site.site}
+
+	section.space-md.imageBG
+		.container
+			.row
+				.col-12
+					h2.contact-title
+						=`${unitData(unit.SizeCodeID).name} ${parseInt(unit.PhysicalSize)}sq.ft`
+				.col-lg-8
+					//- div= `${parseInt(unit.PhysicalSize)}`
+					p= unit.Description 
+					div
+						img.card-img(src=unitData(unit.SizeCodeID).image alt=unitData(unit.SizeCodeID).name)
+
+				.col-lg-4
+					.media.contact-info
+						span.contact-info__icon
+						i.ti-home
+						.media-body
+							h3= site.name
+							p= `${site.details.Address1} - ${site.details.PostCode}`
+							p.my-2.small.badge.badge-info="Site "+site.details.siteid
+							p.my-2.small.badge.badge-info="Unit "+unit.UnitID
+							p.my-2.small.badge.badge-info="Num "+unit.UnitNumber
+							p.my-2.small.badge.badge-info="Size "+unit.SizeCodeID
+					.media.contact-info
+						span.contact-info__icon
+						i.ti-tablet
+						.media-body
+							h3 0800 112 3344
+							p Mon to Fri 9am to 7pm
+					.media.contact-info
+						span.contact-info__icon
+						i.ti-email
+						.media-body
+							h3 info@email.com
+							p Send us your query anytime!
+
+
+
+
+
+
 							
 
 
@@ -90,7 +71,7 @@ block content
 				.row.align-items-md-center
 					.col-md-6
 						.video-cover.rounded.shadow-md
-							img.img-fluid(alt='Image' src='img/pablo-downloading.png')
+							img.img-fluid(alt='Image' src='/img/pablo-downloading.png')
 
 						//- end: Video
 					.col-md-6

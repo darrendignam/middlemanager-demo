@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var mm = require('../utility/mm-wrapper');
+var _unitData = require('../utility/unit-data');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -13,7 +14,7 @@ router.get('/index', function(req, res, next) {
 		let _sites = [];
 		if(err){
 			_sites = [];
-			//probably redireect to a static verion of the website here
+			//probably redirect to a static verion of the website here
 		}else{
 			_sites = response;
 
@@ -33,6 +34,7 @@ router.get('/index', function(req, res, next) {
 			loggedin_name:  (req.user) ? req.user.nickname : '',
 			loggedin_image:  (req.user) ? req.user.profile_pic :'',
 			sites:_sites,
+			unitData:_unitData,
 		});
 	});
 
