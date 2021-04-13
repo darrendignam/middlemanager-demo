@@ -118,6 +118,46 @@ module.exports = {
         });
     },
 
+
+    /**
+     * This helper function will perform a cascade of API calls and build an object representing the current sites and units and prices
+     * 
+     * @param {callback} callback - error and result
+     */
+     getAllAvaliableUnitsVerbose : function(callback){
+        this.post_request("/api/v1/base/WGetSiteDetails", {}, (err, reply)=>{
+            if(err){
+                callback(err);
+            }else{
+                //returns an array, so we need the array async-waterfall here to process each site in turn
+                async([function initializer(initArray) {
+                    initArray(null, []);//prep an empty array for us to work with (in resultsArray)
+                }].concat(reply.map(function (site) {
+                    return function (resultsArray, nextCallback) {
+                        // console.log("Site: " + site.siteid);
+                        post_wrapper("/api/v1/base/WAvailableUnits", { "iSite" : site.siteid }, (err, units)=>{
+                            if(err){
+                                nextCallback(err); //something went wrong, could try to recover, but lets just err out
+                            }else{
+                                let tmp_obj = { "name" : site.SiteName, "details": site ,"units" : units }; 
+                                resultsArray.push(tmp_obj);
+                                // console.log( resultsArray );
+                                nextCallback(null, resultsArray);
+                            }
+                        });
+
+                    }
+                })), function (err, finalResult) {
+                    if(err){
+                        callback(err); //something went wrong, could try to recover, but lets just err out
+                    }else{
+                        callback(null, finalResult); //send the result of looping over the sites to the outer async, for final result processing
+                    }
+                });
+            }
+        });
+    },
+
     /**
      * Send iSite and/or iSize parameters to the API server.
      * 

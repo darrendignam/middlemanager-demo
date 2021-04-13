@@ -5,33 +5,32 @@ block content
 
 	section.space-sm
 			.row.alert.alert-warning
-					| Content below generated from SpaceManager
+				| Content below generated from SpaceManager
 			
 
 	section.space-md.imageBG.bg-light(data-img="/img/home-bg-27.png")
 		.container
 			.row
 				.col-12
-					h2.contact-title
-						=`${unitData(unit.SizeCodeID).name} ${parseInt(unit.PhysicalSize)}sq.ft`
+					h2.contact-title= site.name
 				.col-lg-8
-					//- div= `${parseInt(unit.PhysicalSize)}`
-					p= unit.Description 
+					p
+						a(href=`/site/verbose/${site.details.siteid}`) (View complete list of avaliable units)
+					p= siteData(site.details.siteid).description
 					div
-						img.card-img(src=unitData(unit.SizeCodeID).image alt=unitData(unit.SizeCodeID).name)
+						//- img.card-img(src=unitData(unit.SizeCodeID).image alt=unitData(unit.SizeCodeID).name)
 
 				.col-lg-4
 					.media.contact-info
 						span.contact-info__icon
 						i.ti-home
 						.media-body
-							a(href=`/site/${site.details.siteid}`)
-								h3= site.name
+							h3= site.name
 							p= `${site.details.Address1} - ${site.details.PostCode}`
 							p.my-2.small.badge.badge-info="Site "+site.details.siteid
-							p.my-2.small.badge.badge-info="Unit "+unit.UnitID
-							p.my-2.small.badge.badge-info="Num "+unit.UnitNumber
-							p.my-2.small.badge.badge-info="Size "+unit.SizeCodeID
+							//- p.my-2.small.badge.badge-info="Unit "+unit.UnitID
+							//- p.my-2.small.badge.badge-info="Num "+unit.UnitNumber
+							//- p.my-2.small.badge.badge-info="Size "+unit.SizeCodeID
 					.media.contact-info
 						span.contact-info__icon
 						i.ti-tablet
@@ -45,9 +44,25 @@ block content
 							h3= site.details.Email
 							p Send us your query anytime!
 
-
-
-
+	section.space-md 
+		.container 
+			.row.d-flex.justify-content-center
+				.col-md-10.text-center
+					.block-title
+						h2.h1.font-weight-bold Units:
+			.row.mt-5 
+				each unit,index in site.units
+					.col-12
+						.service-single
+							img.img-icon(src=unitData(unit.SizeCodeID).image)
+							p
+								span.font-weight-bold.mr-1=`[${index}] ${unitData(unit.SizeCodeID).name} ${parseInt(unit.PhysicalSize)}sq.ft - £${parseFloat(unit.MonthRate).toFixed(2)}`
+								= unit.Description
+							p 
+								p.my-2.small.badge.badge-info="Unit "+unit.UnitID
+								p.my-2.small.badge.badge-info="Num "+unit.UnitNumber
+								p.my-2.small.badge.badge-info="Size "+unit.SizeCodeID
+							a.link(href=`/site/${site.details.siteid}/unitsize/${unit.SizeCodeID}`) Find out more
 
 
 							

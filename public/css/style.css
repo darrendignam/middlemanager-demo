@@ -254,7 +254,7 @@ Header
 =========================*/
 
 .header {
-    background: #242424 url("../img/home-bg-27.png");
+    background: #242424 url("/img/home-bg-27.png");
     background-size: cover;
     background-position: center;
 }
@@ -290,7 +290,7 @@ Breadcrumb
 }
 
 .breadcrumb_bg {
-    background-image: url("../img/home-bg-27.png");
+    background-image: url("/img/home-bg-27.png");
     background-position: right;
     background-repeat: no-repeat;
     background-size: contain;

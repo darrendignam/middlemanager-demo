@@ -35,9 +35,7 @@ block content
 								img.img-fluid(src='/img/pablo-delivery.png' alt='Awesome Image')
 
 	section.space-sm
-		.container
-			.row
-				.col-12.alert.alert-warning
+			.row.alert.alert-warning
 					| Content below generated from SpaceManager
 			
 	each _site,index in sites
@@ -46,7 +44,8 @@ block content
 				.row.d-flex.justify-content-center
 					.col-12
 						.block-title
-							h2.h1.font-weight-bold= _site.name
+							a(href=`/site/${_site.details.siteid}`)
+								h2.h1.font-weight-bold= _site.name
 						p.h5= `${_site.details.Address1} - ${_site.details.PostCode} -  ${_site.details.siteid}`
 
 					each unit,jndex in _site.units
@@ -61,7 +60,7 @@ block content
 										img.card-img(src=unitData(unit.SizeCodeID).image alt=unitData(unit.SizeCodeID).name)
 										h3.display-3.font-weight-bold= `£${parseFloat(unit.MonthRate).toFixed(2)}`
 										p per month
-									a.btn.btn-primary(href=`/site/${unit.SiteID}/${unit.SizeCodeID}`) Find out more!
+									a.btn.btn-primary(href=`/site/${unit.SiteID}/unitsize/${unit.SizeCodeID}`) Find out more!
 									.mt-4
 										p.my-2.small Unit ID:
 										p.my-2.small.badge.badge-info=unit.UnitID
@@ -77,9 +76,7 @@ block content
 
 
 	section.space-sm
-		.container
-			.row
-				.col-12.alert.alert-warning
+			.row.alert.alert-warning
 					| End dynamic content.
 
 	section.space-sm
