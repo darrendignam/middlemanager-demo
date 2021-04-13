@@ -30,7 +30,7 @@ var LocalAccount = new Schema({
     created: Date,
     updated:{ type: Date, default: Date.now },
 
-    profile_pic:{type: String, trim: true, default:'https://127.0.0.1/avatar.png'},
+    profile_pic:{type: String, trim: true, default:'/img/blankavatar.png'},
 
     address1:{type: String, trim: true},
     address2:{type: String, trim: true},
