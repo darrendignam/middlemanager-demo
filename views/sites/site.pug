@@ -15,7 +15,7 @@ block content
 					h2.contact-title= site.name
 				.col-lg-8
 					p
-						a(href=`/site/verbose/${site.details.siteid}`) (View complete list of avaliable units)
+						a.link(href=`/site/verbose/${site.details.siteid}`) (View complete list of avaliable units)
 					p= siteData(site.details.siteid).description
 					div
 						//- img.card-img(src=unitData(unit.SizeCodeID).image alt=unitData(unit.SizeCodeID).name)

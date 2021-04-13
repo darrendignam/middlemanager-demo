@@ -4,8 +4,7 @@ var needle = require("needle");
 //Useful tool to manage groups of async function calls
 var async = require('async-waterfall');
 
-const server_url = "https://mm.tickertape.cc";
-// const server_url = "http://192.168.1.165:3000";
+const server_url = process.env.MIDDLEMANAGER_URL;
 
 var needle_options = {
     compressed: true,
