@@ -3,3 +3,9 @@
 Your custom css here
 
 /////////////////////////////////////////*/
+
+.btn_100w{
+    width:100%;
+    display:block;
+    margin:4px auto !important;
+}

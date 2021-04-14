@@ -1,0 +1,61 @@
+extends ../layout.pug
+
+block content
+
+	.container
+		.row
+			div(class='col-sm-12')
+				if error_message
+					div(class="alert alert-danger")
+						| <span class="glyphicon glyphicon-exclamation-sign"></span>
+						= error_message
+				if message
+					div(class="alert alert-danger")
+						| <span class="glyphicon glyphicon-exclamation-sign"></span>
+						= message
+				if (flash_info && flash_info.length > 0)
+					div(class="alert alert-warning")
+						| <span class="glyphicon glyphicon-exclamation-sign"></span>
+						= flash_info
+				if (flash_info2 && flash_info2.length > 0)
+					div(class="alert alert-warning")
+						| <span class="glyphicon glyphicon-exclamation-sign"></span>
+						= flash_info2
+				if (flash_success && flash_success.length > 0)
+					div(class="alert alert-success")
+						| <span class="glyphicon glyphicon-ok"></span>
+						= flash_success
+
+	section.space-md.imageBG.bg-light(data-img="/img/home-bg-27.png")
+		.container
+			//- div(class="text-center m-0 d-flex flex-column justify-content-center text-light")
+			//- 	div(class='row h-50')
+						//- div(class='col')
+						//- 	div(class='social_media_login_box')
+						//- 		a.btn.btn-primary(href='/account/login/facebook' title='Login with Facebook') Login With Facebook
+						//- 			//- img(src='/images/facebook_box.svg')
+						//- div(class='col')
+						//- 		a.btn.btn-primary(href='/account/login/google' title='Login with Google') Login With Google
+						//- 			img(src='/images/google_box.svg')
+
+			.row.h-100
+				div.col-12
+					h1.text-center Login with user account
+				div(class='col-md-4 col-sm-12')
+				div(class='col-md-4 col-sm-12')
+					div(class='panel-body')
+						div(class='large_form')
+							form(action='/account/login' method='post')
+								div(class='form-group')
+									label(for='fm_username') username:
+									input(class='form-control' name='username' id='username' placeholder='username' type='text' required)
+								div(class='form-group')
+									label(for='password') password:
+									input(class='form-control' name='password' id='password' placeholder='password' type='password' required)
+								div(class='form-group')
+									button(type='submit' class='btn btn_100w btn-primary') Login
+					div(class="panel-footer text-right")
+						p
+							a(href="/account/forgot_password") Forgotten your password?
+						p
+							a(href="/account/register") Register new account!

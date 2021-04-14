@@ -44,6 +44,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var Schema = mongoose.Schema;
+mongoose.connect(process.env.MONGO_CONN_STRING);
+require('./config/passport.js')(passport);
+
+
+
 app.use('/', require('./routes/index'));
 app.use('/account', require('./routes/users'));
 app.use('/site', require('./routes/sites'));

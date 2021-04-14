@@ -102,8 +102,6 @@ function (req, res) {
         name: req.body.name,
         surname: req.body.surname,
         oauthProvider: "local_provider",
-        terms: constants.termsAndConditions.string,
-        terms_version: constants.termsAndConditions.version,
         //profile_pic: "https://imagecache.example.com/avatar.php?size=150&hash=" + crypto.createHash('md5').update("" + req.body.username + "stuff" + req.body.email).digest('hex'),
         created: Date.now()
     }), req.body.password, function (err, user) {

@@ -1,0 +1,156 @@
+extends ../layout.pug
+
+block content
+
+	section
+		div(class='container')
+			div(class='row')
+				div(class='col-sm-12')
+					if error_message
+						div(class="alert alert-danger  banner-top")
+							| <span class="glyphicon glyphicon-exclamation-sign"></span>
+							= error_message
+					if message
+						div(class="alert alert-danger  banner-top")
+							| <span class="glyphicon glyphicon-exclamation-sign"></span>
+							= message
+					if (flash_info && flash_info.length > 0)
+						div(class="alert alert-warning  banner-top")
+							| <span class="glyphicon glyphicon-exclamation-sign"></span>
+							= flash_info
+					if (flash_info2 && flash_info2.length > 0)
+						div(class="alert alert-warning  banner-top")
+							| <span class="glyphicon glyphicon-exclamation-sign"></span>
+							= flash_info2
+					if (flash_success && flash_success.length > 0)
+						div(class="alert alert-success banner-top")
+							| <span class="glyphicon glyphicon-ok"></span>
+							= flash_success
+
+					if is_provider
+						div(class='col-sm-12 banner-top')
+							div(class="alert alert-warning")
+								//- h2 Storage Provider Admin Mode
+								p 
+									a(class="btn btn-primary" href="/api/provider") View Provider Dashboard
+
+
+	section#testimonials1-w.testimonials1.cid-scVZrw5NQu
+		.container
+			.row.align-items-center
+				.col-12.col-md-4
+					.image-wrapper
+						div(id="preview_avatar" class="cover_pic_view" style="background-image:url("+response.data.profile_pic+")" )
+						div(style="width:200px;text-align:center;margin:10px auto;")
+							input(type="file" id="file-input")
+							p(id="status") Upload new profile picture
+				.col-12.col-md
+					.text-wrapper
+						p.mbr-text.mbr-fonts-style.mb-4.display-2
+							strong= response.data.nickname
+
+
+	section
+		.container
+			.row
+				.col-md-4
+					#projects_container(style="display:none")
+						h4 Your Projects:
+						#user_projects_div
+				.col-md-4
+					#services_container(style="display:none")
+						h4 Your Services:
+						#user_services_div
+				.col-md-4
+					#conversations_container(style="display:none")
+						h4 Your Comms:
+						#user_conversation_posts_div
+
+										
+					//- .container(style="margin-top:100px")
+					//- 	h1 Identifiing Features
+					//- 	div(class='col')
+					//- 		div(id="preview_avatar" class="profile_pic_view" style="background-image:url("+response.data.profile_pic+")" )
+					//- 		div(style="width:200px;text-align:center;margin:10px auto;")
+					//- 			input(type="file" id="file-input")
+					//- 			p(id="status") Upload new profile picture
+
+
+	section.space-md.imageBG.bg-light(data-img="/img/home-bg-27.png")
+		div(class='container large_form')
+			form(action='/account/update/'+response.data._id+'/edit' method='post')
+				div.row
+					div.col-md-6
+						//-input(name='_id' id='_id' value=response.data._id type='text' disabled)
+						input(type='hidden' name='_csrf' value=csrfToken)
+						input(name='_id' id='_id' value=response.data._id type='hidden')
+						input(name='profile_pic' id='profile_pic' value=response.data.profile_pic type='hidden')
+						if (response.data.oauthProvider == "local_provider")
+							div(class='form-group')
+								label(for='username') username:
+								input(class='form-control' name='username' id='username' value=response.data.username type='text' disabled)
+
+						//- div(class='form-group')
+						//- 	label(for='bannerpic') banner pic:
+						//- 	input(class='form-control' name='bannerpic' id='bannerpic' value=response.data.bannerpic placeholder='main image shown on your profile page' type='text')
+						div(class='form-group')
+							label(for='name') nickname:
+							input(class='form-control' name='nickname' id='nickname' value=response.data.nickname placeholder='nickname' type='text')
+						div(class='form-group')
+							label(for='name') first name:
+							input(class='form-control' name='name' id='name' value=response.data.name placeholder='name' type='text')
+						div(class='form-group')
+							label(for='surname') surname:
+							input(class='form-control' name='surname' id='surname' value=response.data.surname placeholder='surname' type='text')
+
+					div.col-md-6
+						div(class='form-group')
+							label(for='email') email:
+							input(class='form-control' name='email' id='email' value=response.data.email type='text' disabled)
+						div(class='form-group')
+							label(for='phonenumber') phone:
+							input(class='form-control' name='phonenumber' id='phonenumber'  value=response.data.phonenumber placeholder='phone' type='text')
+
+						div(class='form-group')
+							label(for='address1') address:
+							input(class='form-control' name='address1' id='address1' value=response.data.address1 placeholder='' type='text')
+							input(class='form-control' name='address2' id='address2' value=response.data.address2 placeholder='' type='text')
+							input(class='form-control' name='address3' id='address3' value=response.data.address3 placeholder='' type='text')
+							input(class='form-control' name='address4' id='address4' value=response.data.address4 placeholder='' type='text')
+						div(class='form-group')
+							label(for='addressZip') postcode/zip:
+							input(class='form-control' name='addressZip' id='addressZip' value=response.data.addressZip placeholder='postcode/zip' type='text')
+
+					div.col-md-12
+						div(class='form-group')
+							button(type="submit" class="btn btn_100w btn-primary") Update Account
+
+
+
+
+						div(class='col-sm-4')
+							//-h2 your activity:
+
+
+
+
+					div(class='panel-footer')
+						p(class='item_details') Edit your personal details, see your activity.
+
+				//- div(class="row")
+				//- 	div(class="col-md-12")
+				//- 		div(class='panel panel-primary')
+				//- 			div(class='panel-heading') Payment History
+				//- 			div(class='panel-body')
+				//- 				div(id="payment_history")
+				//- 					p Loading...
+
+
+block footer
+
+	script(src="/javascripts/profile_image_upload.js")
+	script(src="/javascripts/canvas-to-blob.js")
+	//-script.
+		//-_sub_free_arr = [#{response.data.free_submissions.map(function(id){ return "'" +id+"'" })}];
+		//-console.log(_sub_free_arr)
+	script(src="/javascripts/user_account.js")
