@@ -35,36 +35,36 @@ block content
 									a(class="btn btn-primary" href="/api/provider") View Provider Dashboard
 
 
-	section#testimonials1-w.testimonials1.cid-scVZrw5NQu
+	section 
 		.container
 			.row.align-items-center
-				.col-12.col-md-4
+				.col-md-3
 					.image-wrapper
 						div(id="preview_avatar" class="cover_pic_view" style="background-image:url("+response.data.profile_pic+")" )
 						div(style="width:200px;text-align:center;margin:10px auto;")
 							input(type="file" id="file-input")
 							p(id="status") Upload new profile picture
-				.col-12.col-md
+				.col-md-9
 					.text-wrapper
 						p.mbr-text.mbr-fonts-style.mb-4.display-2
-							strong= response.data.nickname
+							=response.data.nickname
 
 
 	section
 		.container
 			.row
 				.col-md-4
-					#projects_container(style="display:none")
-						h4 Your Projects:
-						#user_projects_div
+					#quotes_container(style="display:none")
+						h4 Quotes:
+						#user_quotes_div
 				.col-md-4
-					#services_container(style="display:none")
-						h4 Your Services:
-						#user_services_div
+					#reservations_container(style="display:none")
+						h4 Reservations:
+						#user_reservations_div
 				.col-md-4
-					#conversations_container(style="display:none")
-						h4 Your Comms:
-						#user_conversation_posts_div
+					#orders_container(style="display:none")
+						h4 Orders:
+						#user_orders_posts_div
 
 										
 					//- .container(style="margin-top:100px")
