@@ -53,6 +53,7 @@ require('./config/passport.js')(passport);
 app.use('/', require('./routes/index'));
 app.use('/account', require('./routes/users'));
 app.use('/site', require('./routes/sites'));
+app.use('/shop', require('./routes/shop'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
