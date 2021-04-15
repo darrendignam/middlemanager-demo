@@ -47,11 +47,19 @@ var LocalAccount = new Schema({
     oauthProfile: {},
 
 
-    // ref to an array of odrders
-    // storage_orders:[{
-    //     type: mongoose.Schema.Types.ObjectId, 
-    //     ref: 'StorageBasketOrder' 
-    // }],
+    // ref to an array of orders
+    quotes:[{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'quote' 
+    }],
+    reservations:[{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'reservation' 
+    }],
+    orders:[{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'order' 
+    }],
     
     stripeResponse: {},//store the complete stripe user object here
 
