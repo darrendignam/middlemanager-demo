@@ -6,10 +6,6 @@ var _unitData = require('../utility/unit-data');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.redirect('/index');
-});
-
-router.get('/index', function(req, res, next) {
 	mm.getAllAvaliableUnits((err,response)=>{
 		let _sites = [];
 		if(err){
