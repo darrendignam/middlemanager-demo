@@ -48,6 +48,7 @@ var Schema = mongoose.Schema;
 mongoose.connect(process.env.MONGO_CONN_STRING);
 require('./config/passport.js')(passport);
 
+//This lets the Cart menu item reflect the number of quotes a user has. can manage the session and user quotes 
 app.use(function(req, res, next) {
   //used to update the menu shopping cart //TODO: check for logged in with quotes here.
   //TODO: Could also add some smarts here to promt user to complete an order.
