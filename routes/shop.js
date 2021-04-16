@@ -8,8 +8,48 @@ var _siteData = require('../utility/site-data');
 var Quote = require('../models/quote');
 var LocalAccount = require('../models/localAccount');
 
-router.get('cart', function(req, res){
-    res.send('cart');
+router.get('/cart', function(req, res){
+    _quotes = [];
+
+    if(req.user){
+        _quotes = req.user.quotes;
+    }else if(req.session && req.session.quotes){
+        _quotes = req.session.quotes
+    }
+    res.render('shop/quotes', {
+        page_title: "middlemanager demo site",
+        page_description: "Demo of using the middlemanager API to interact with the SpaceManager database",
+        page_path: req.path,
+        page_type: "website",
+        loggedin: (req.user) ? 1 : 0,
+        loggedin_name:  (req.user) ? req.user.nickname : '',
+        loggedin_image:  (req.user) ? req.user.profile_pic :'',
+        quotes:_quotes,
+        siteData:_siteData,
+        unitData:_unitData,
+    });
+    // res.json(_quotes);
+});
+
+router.get('/quote/view/:quoteid', function(req, res){
+    Quote.findById(req.params.quoteid,(err, _quote)=>{
+        if(err){
+            res.json(err);
+        }else{
+            res.render('shop/quote', {
+                page_title: "middlemanager demo site",
+                page_description: "Demo of using the middlemanager API to interact with the SpaceManager database",
+                page_path: req.path,
+                page_type: "website",
+                loggedin: (req.user) ? 1 : 0,
+                loggedin_name:  (req.user) ? req.user.nickname : '',
+                loggedin_image:  (req.user) ? req.user.profile_pic :'',
+                quote:_quote,
+                siteData:_siteData,
+                unitData:_unitData,
+            });
+        }
+    });
 });
 
 router.get('/quote/new/:siteid/unitsize/:sizecodeid', function(req, res) {
@@ -50,7 +90,7 @@ router.get('/quote/new/:siteid/unitsize/:sizecodeid', function(req, res) {
             //process quote:
             let _quote = new Quote({
                 site: _site.details.siteid,
-                unitsize: _unit.UnitID,
+                sizecode: _unit.SizeCodeID,
                 pricePerMonth: _unit.MonthRate,
                 pricePerWeek: _unit.Weekrate,
                 terms:"Add some TandC here"

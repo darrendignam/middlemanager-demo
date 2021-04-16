@@ -25,7 +25,10 @@ header
 								| Cart
 					if(loggedin)
 						li.nav-item
-							a.nav-link(href='/account') Account
+							if loggedin_name
+								a.nav-link(href='/account')=loggedin_name
+							else 
+								a.nav-link(href='/account') Account
 						li.nav-item
 							a.nav-link(href='/account/logout') Logout
 					else 
