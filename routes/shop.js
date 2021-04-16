@@ -13,22 +13,44 @@ router.get('/cart', function(req, res){
 
     if(req.user){
         _quotes = req.user.quotes;
+
+        LocalAccount.findById(req.user._id)
+        .populate('quotes')
+        .exec((err,user)=>{
+            if(err){
+                res.json(err);
+            }else{
+                _quotes = user.quotes;
+                
+                res.render('shop/quotes', {
+                    page_title: "middlemanager demo site",
+                    page_description: "Demo of using the middlemanager API to interact with the SpaceManager database",
+                    page_path: req.path,
+                    page_type: "website",
+                    loggedin: (req.user) ? 1 : 0,
+                    loggedin_name:  (req.user) ? req.user.nickname : '',
+                    loggedin_image:  (req.user) ? req.user.profile_pic :'',
+                    quotes:_quotes,
+                    siteData:_siteData,
+                    unitData:_unitData,
+                });
+            }
+        });
     }else if(req.session && req.session.quotes){
-        _quotes = req.session.quotes
+        _quotes = req.session.quotes;
+        res.render('shop/quotes', {
+            page_title: "middlemanager demo site",
+            page_description: "Demo of using the middlemanager API to interact with the SpaceManager database",
+            page_path: req.path,
+            page_type: "website",
+            loggedin: (req.user) ? 1 : 0,
+            loggedin_name:  (req.user) ? req.user.nickname : '',
+            loggedin_image:  (req.user) ? req.user.profile_pic :'',
+            quotes:_quotes,
+            siteData:_siteData,
+            unitData:_unitData,
+        });
     }
-    res.render('shop/quotes', {
-        page_title: "middlemanager demo site",
-        page_description: "Demo of using the middlemanager API to interact with the SpaceManager database",
-        page_path: req.path,
-        page_type: "website",
-        loggedin: (req.user) ? 1 : 0,
-        loggedin_name:  (req.user) ? req.user.nickname : '',
-        loggedin_image:  (req.user) ? req.user.profile_pic :'',
-        quotes:_quotes,
-        siteData:_siteData,
-        unitData:_unitData,
-    });
-    // res.json(_quotes);
 });
 
 router.get('/quote/view/:quoteid', function(req, res){
@@ -117,9 +139,10 @@ router.get('/quote/new/:siteid/unitsize/:sizecodeid', function(req, res) {
                         }else{
                             req.session.quotes = [ _quote ]
                         }
+                        res.redirect(`/shop/quote/view/${new_quote.id}`);
                     }
 
-                    res.redirect(`/shop/quote/view/${new_quote.id}`);
+                    
 
                     // redirect to the quote view page
                     // res.json(new_quote);

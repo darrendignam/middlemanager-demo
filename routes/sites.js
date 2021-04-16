@@ -90,11 +90,8 @@ router.get('/:siteid/unitsize/:sizecodeid', function(req, res, next) {
                 _site = {};
             }else{
                 _unit = _site[0].units.filter((unit)=>{
-                    console.log(unit.SizeCodeID);
                     return unit.SizeCodeID == req.params.sizecodeid;
                 });
-                // console.log(_unit);
-
                 if (_unit.length < 1){
                     _unit = {};
                     _site = {};

@@ -51,10 +51,31 @@ require('./config/passport.js')(passport);
 app.use(function(req, res, next) {
   //used to update the menu shopping cart //TODO: check for logged in with quotes here.
   //TODO: Could also add some smarts here to promt user to complete an order.
-  if (req.session && req.session.quotes) {
+  if (!req.user && req.session && req.session.quotes) {
     res.locals.sumQuotes = req.session.quotes.length;
     next();
-  } else {
+  } else if(req.user && req.session && req.session.quotes) {
+    mongoose.model('LocalAccount').findByIdAndUpdate(req.user._id, { $push: { quotes: req.session.quotes } }, function (err, user) {
+      if (err) {
+        res.locals.sumQuotes = 0;
+        next();
+      } else {
+        res.locals.sumQuotes = user.quotes.length;
+        delete req.session.quotes;
+        next();   
+      }
+    });
+  }else if(req.user){
+    mongoose.model('LocalAccount').findById(req.user._id, function (err, user) {
+      if (err) {
+        res.locals.sumQuotes = 0;
+        next();
+      } else {
+        res.locals.sumQuotes = user.quotes.length;
+        next();   
+      }
+    });
+  }else{
     res.locals.sumQuotes = 0;
     next();
   }
