@@ -12,8 +12,13 @@ block content
 		.container
 			.row
 				.col-12
-					h2.contact-title
-						=`${unitData(unit.SizeCodeID).name} ${parseInt(unit.PhysicalSize)}sq.ft`
+					h2.contact-title= `${unitData(unit.SizeCodeID).name} ${parseInt(unit.PhysicalSize)}sq.ft`
+					h2= `£${parseFloat(unit.MonthRate).toFixed(2)} /month`
+					p= `£${parseFloat(unit.Weekrate).toFixed(2)} /week`
+					div
+						a.btn.btn-primary.mr-2(href=`/shop/quote/new/${site.details.siteid}/unitsize/${unit.SizeCodeID}`) Save Quote
+						a.btn.btn-primary.mr-2(href=`/shop/reservation/new/${site.details.siteid}/unitsize/${unit.SizeCodeID}`) Make Reservation
+						a.btn.btn-primary.mr-2(href=`/shop/order/new/${site.details.siteid}/unitsize/${unit.SizeCodeID}`) Make Booking
 				.col-lg-8
 					//- div= `${parseInt(unit.PhysicalSize)}`
 					p= unit.Description 
