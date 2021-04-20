@@ -387,7 +387,7 @@ router.post('/order/fromquote/:quoteid', csrfProtection, function(req, res) {
                 (_data_in,callback)=>{
                     //(3) try and push this to a new order
                     mm.createNewContract({
-                        customerid:         _data_in.CustomerID,
+                        customerid:         _data_in.customerid,
                         siteid:             _quote.site,
                         unitid:             _data_in.unit.unitID,
                         startdate:          req.body.iStartDate,
