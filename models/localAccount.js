@@ -5,7 +5,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var LocalAccount = new Schema({
 
     spacemanager: {},
-    CustomerID : String,
+    CustomerID : {type: String, trim: true, default:''},
 
 	oauthID: String,   /* used for social media logins */
 	oauthProvider: String,

@@ -192,9 +192,9 @@ router.get('/reservation/fromquote/:quoteid', csrfProtection, function(req, res)
 });
 
 router.post('/reservation/fromquote/:quoteid', csrfProtection, function(req, res) {
-    if(req.user && req.user.spacemanager && req.user.spacemanager.CustomerID != ''){
+    if(req.user && req.user.CustomerID != ''){
         //add reservation to existing account
-        res.json("R1");
+        res.send("TODO: Route: New reservation for exsiting Spacemanager and Website user (https://mm.tickertape.cc/api/v1/base/WMakeReservation)");
     }else if(req.user){
         //create reservation and save customer ID and reservation ID
         Quote.findById(req.params.quoteid,(err,_quote)=>{
@@ -279,7 +279,7 @@ router.post('/reservation/fromquote/:quoteid', csrfProtection, function(req, res
         });
     }else{
         //create local account, save the new customer ID and reservation
-        res.json("R3");
+        res.send("TODO: Route: New Website User, new spacemanager user, new reservation.");
     }
 });
 

@@ -17,14 +17,15 @@ block content
 		.container
 			.row
 				.col-12
-					p.h1 New Reservation
+					p.h1 New Order 
+					p (Online Check in)
 					.service-single
 						//- p= quote
 						img.img-icon(src=unitData(quote.sizecode).image)
 						p
 							span.font-weight-bold.mr-1=`${siteData(quote.site).name} : ${unitData(quote.sizecode).name} - £${parseFloat(quote.pricePerMonth).toFixed(2)}/month`
 
-			form(action=`/shop/reservation/fromquote/${quote._id}` method='post')
+			form(action=`/shop/order/fromquote/${quote._id}` method='post')
 				div.row
 					.col-12
 						h3 About You
@@ -68,6 +69,10 @@ block content
 								input(class='form-control' name='email' id='email' value=data.email type='text' readonly="readonly")
 
 						div(class='form-group')
+							label(for='idob') Date of birth (YYYY-MM-DD):
+							input(class='form-control' name='idob' id='idob' placeholder='(YYYY-MM-DD) WFunction fails without this' type='text' required)
+
+						div(class='form-group')
 							label(for='address1') address:
 							input.mb-1(class='form-control' name='address1' id='address1' value=data.address1 placeholder='' type='text' required)
 							input.mb-1(class='form-control' name='address2' id='address2' value=data.address2 placeholder='' type='text')
@@ -94,8 +99,11 @@ block content
 							label(for='sizecode') sizecode:
 							input(class='form-control' name='sizecode' id='sizecode' value=quote.sizecode placeholder='sizecode' type='text' readonly="readonly")
 						div(class='form-group')
-							label(for='imoveindate') imoveindate:
-							input(class='form-control' name='imoveindate' id='imoveindate' placeholder='YYYY-MM-DD' type='text')
+							label(for='iStartDate') start date:
+							input(class='form-control' name='iStartDate' id='iStartDate' placeholder='YYYY-MM-DD' type='text')
+						div(class='form-group')
+							label(for='itodate') charge to date (=StartDate + 1 Month - 1 day):
+							input(class='form-control' name='itodate' id='itodate' placeholder='YYYY-MM-DD' type='text')
 
 						div(class='form-group')
 							label(for='ipaymethod') ipaymethod:
@@ -115,7 +123,7 @@ block content
 
 					div.col-md-12
 						div(class='form-group')
-							button(type="submit" class="btn btn_100w btn-primary") Reserve Unit
+							button(type="submit" class="btn btn_100w btn-primary") Book Unit
 
 
 
