@@ -237,8 +237,8 @@ router.post('/reservation/fromquote/:quoteid', csrfProtection, function(req, res
                         //res.json(result);
                         console.log(result);
 
-                        //TODO: This is a mess of nested callbacks. do them with an async() at one level
-                        LocalAccount.findByIdAndUpdate(req.user._id, { spacemanager: result[0]  }, function (err, account) {
+                        //TODO: This is a mess of nested callbacks. do them with an async tool
+                        LocalAccount.findByIdAndUpdate(req.user._id, { spacemanager: result[0], CustomerID: result[0].CustomerID  }, function (err, account) {
                             if (err) {
                                 res.json(err);
                             } else {
@@ -281,6 +281,45 @@ router.post('/reservation/fromquote/:quoteid', csrfProtection, function(req, res
         //create local account, save the new customer ID and reservation
         res.json("R3");
     }
+});
+
+router.get('/order/fromquote/:quoteid', csrfProtection, function(req, res) {
+    Quote.findById(req.params.quoteid,(err,_quote)=>{
+        if(err){
+            res.json(err);
+        }else{
+            req.session.redirectTo = "/shop/order/fromquote/"+req.params.quoteid;
+
+            let _data = {
+                username: (req.user) ? req.user.username : '',
+                name: (req.user) ? req.user.name : '',
+                surname: (req.user) ? req.user.surname : '',
+                email: (req.user) ? req.user.email : '',
+                phonenumber: (req.user) ? req.user.phonenumber : '',
+                address1: (req.user) ? req.user.address1 : '',
+                address2: (req.user) ? req.user.address2 : '',
+                address3: (req.user) ? req.user.address3 : '',
+                address4: (req.user) ? req.user.address4 : '',
+                addressZip: (req.user) ? req.user.addressZip : '',
+
+            }
+
+            res.render('shop/new_order_quote', {
+                page_title: "middlemanager demo site",
+                page_description: "Demo of using the middlemanager API to interact with the SpaceManager database",
+                page_path: req.path,
+                page_type: "website",
+                loggedin: (req.user) ? 1 : 0,
+                loggedin_name:  (req.user) ? req.user.nickname : '',
+                loggedin_image:  (req.user) ? req.user.profile_pic :'',
+                quote:_quote,
+                data: _data,
+                siteData:_siteData,
+                unitData:_unitData,
+                csrfToken: req.csrfToken(),
+            });
+        }
+    });
 });
 
 

@@ -168,6 +168,28 @@ module.exports = {
     },
 
     /**
+     * Send object parameters to the API server to create new Space Manager Customer.
+     * 
+     * @param {object} post_data - Object (See https://mm.tickertape.cc/api/v1/base/WAddCustomer) 
+     * @param {callback} callback_function- error and result
+     */
+    addCustomer : function(post_data, callback){
+        this.post_request("/api/v1/base/WAddCustomer", post_data, callback);
+    },
+
+    /**
+     * Send object parameters to the API server to create new contract.
+     * This is an 'extended' function, as the middleware is doing a set of 'W' functions before returning a 
+     * result.
+     * 
+     * @param {object} post_data - Object (See https://mm.tickertape.cc/api/v1/extended/CreateNewContract) 
+     * @param {callback} callback_function- error and result
+     */
+     createNewContract : function(post_data, callback){
+        this.post_request("/api/v1/extended/CreateNewContract", post_data, callback);
+    },
+
+    /**
      * Send object parameters to the API server to create new SM customer and generate a reservation.
      * 
      * @param {object} post_data - Object (See https://mm.tickertape.cc/api/v1/base/WAddCustomerWithReservation) 
