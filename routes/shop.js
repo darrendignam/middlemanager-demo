@@ -401,7 +401,7 @@ router.post('/order/fromquote/:quoteid', csrfProtection, function(req, res) {
                         paymentid:          'C1',
                         paymentref:         'CASH',
                         goodsvalue:         req.body.goodsvalue,
-                        notes:              req.body.notes,
+                        notes:              req.body.note,
                     },(err, _contract)=>{
                         if(err){
                             callback(err);
