@@ -168,6 +168,24 @@ module.exports = {
     },
 
     /**
+     * This helper function will find the first avaliable unit from a site of a supplied sizecode
+     * 
+     * @param {string} siteid - site
+     * @param {string} sizecode - sizecode
+     * @param {callback} callback - error and result
+    */
+    getAvaliableUnit : function(siteid, sizecode, callback){
+        this.post_request("/api/v1/base/WAvailableUnits", { "iSite" : siteid, "iSize" : sizecode }, (err, units)=>{
+            if(err){
+                callback(err); //something went wrong, could try to recover, but lets just err out
+            }else{
+                //return the first one
+                callback( null, units[0] );
+            }
+        });
+    },
+
+    /**
      * Send object parameters to the API server to create new Space Manager Customer.
      * 
      * @param {object} post_data - Object (See https://mm.tickertape.cc/api/v1/base/WAddCustomer) 

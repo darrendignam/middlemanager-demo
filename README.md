@@ -3,6 +3,7 @@
 Full Demo application of connecting to and using the middleware software.
 
 ## Example .env file (example values too)
+PORT=3000
 NODE_ENV='dvelopment'
 ENV_SPACE='middlemanager'
 MONGO_CONN_STRING='mongodb://mongouser:mongopassword@127.0.0.1:12354/middlemanager?authSource=admin&ssl=false'

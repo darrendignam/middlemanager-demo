@@ -57,7 +57,7 @@ block content
 							input(class='form-control' name='surname' id='surname' value=data.surname placeholder='surname' type='text')
 						div(class='form-group')
 							label(for='phonenumber') phone:
-							input(class='form-control' name='phonenumber' id='phonenumber'  value=data.phonenumber placeholder='phone' type='text' required)
+							input(class='form-control' name='phonenumber' id='phonenumber'  value=data.phonenumber placeholder='phone' type='text')
 
 
 					div.col-md-6
@@ -89,8 +89,16 @@ block content
 							label(for='deposit') deposit:
 							input(class='form-control' name='deposit' id='deposit' placeholder='deposit (one month?)' type='text' required)
 						div(class='form-group')
-							label(for='ivatamt') ivatamt:
-							input(class='form-control' name='ivatamt' id='ivatamt' placeholder='VAT amount' type='text' required)
+							label(for='rate') rate (this example is based on monthly subscription):
+							input(class='form-control' name='rate' id='rate' value=quote.pricePerMonth placeholder='(one month?)' type='text' required)
+						div(class='form-group')
+							label(for='amount') payment (amount):
+							input(class='form-control' name='amount' id='amount' placeholder='amount (total taken from the customers credit card NOW)' type='text' required)
+
+						//- was required for the reservations, but not here!!??
+						//- div(class='form-group')
+						//- 	label(for='ivatamt') ivatamt:
+						//- 	input(class='form-control' name='ivatamt' id='ivatamt' placeholder='VAT amount' type='text' required)
 
 						div(class='form-group')
 							label(for='site') site:
@@ -113,6 +121,10 @@ block content
 							input(class='form-control' name='ipayref' id='ipayref' value="creditcard" placeholder='ipayref' type='text')
 
 						div(class='form-group')
+							label(for='goodsvalue') goods value, not insured (this is a required field by Space Manager, but I dont think it does anything)):
+							input(class='form-control' name='goodsvalue' id='goodsvalue' placeholder='goodsvalue (not sure what this does probably nothing)' type='text' required)
+
+						div(class='form-group')
 							label(for='note') note:
 							input(class='form-control' name='note' id='note' value="online order" placeholder='note' type='text')
 					div.col-md-6
@@ -120,6 +132,13 @@ block content
 							p These fields must be completed and should be similar to the Space Manager UI. 
 							p This section of the demo will also create a new user in the local database if no user is currently logged in.
 							p In a production system - the electronic collection of the deposit would happen around now. But in this demo, we can just submit a value and Space Manager will accept it.
+
+						.row.alert.alert-warning
+							p There are ref fields on this form, but I have actually hard coded the following into the POST body. As we need more info on nhow Space Manager deals with these. Get it wrong and it throws an error, but CASH is working on my demo server
+							p
+								| paymentid:          'C1',<br>
+								| paymentref:         'CASH',
+
 
 					div.col-md-12
 						div(class='form-group')

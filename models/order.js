@@ -6,6 +6,7 @@ var order = new mongoose.Schema({
     updated: Date,
 
     OrderID:{type: String, trim: true},
+    order:{},
 
     site:{type: String, trim: true},
     sizecode:{type: String, trim: true},
