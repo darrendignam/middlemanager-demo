@@ -1,0 +1,142 @@
+extends ../layout
+
+block content
+
+
+	section.space-sm
+		.container
+			.row.alert.alert-info
+				p Hurry and turn this <strong>quote</strong> into an <strong>order</strong> today! {xyz} days before the quote expires!
+
+			if(data.username == "")
+				.row.alert.alert-warning
+					If you have an account with us already, please <strong><a href='/account/login'>log in</a></strong> now!<br>Otherwise please complete all fields below and an account will be created.
+
+
+	section.space-md.imageBG.bg-light(data-img="/img/home-bg-27.png")
+		.container
+			.row
+				.col-12
+					p.h1 New Reservation
+					.service-single
+						//- p= quote
+						img.img-icon(src=unitData(quote.sizecode).image)
+						p
+							span.font-weight-bold.mr-1=`${siteData(quote.site).name} : ${unitData(quote.sizecode).name} - £${parseFloat(quote.pricePerMonth).toFixed(2)}/month`
+
+			form(action=`/shop/reservation/fromquote/${quote._id}` method='post')
+				div.row
+					.col-12
+						h3 About You
+					div.col-md-6
+						//-input(name='_id' id='_id' value=response.data._id type='text' disabled)
+						input(type='hidden' name='_csrf' value=csrfToken)
+						input(name='_id' id='_id' value=quote._id type='hidden')
+
+						div(class='form-group')
+							label(for='username') username:
+							if(data.username == "")
+								input(class='form-control' name='username' id='username' value=data.username type='text' required)
+							else
+								input(class='form-control' name='username' id='username' value=data.username type='text' disabled)
+						
+						if(data.username == "")
+							div(class='form-group')
+								label(for='password') password:
+								input(class='form-control' name='password' id='password' value=data.username type='password' required)
+
+						div(class='form-group')
+							label(for='title') title:
+							input(class='form-control' name='title' id='title' placeholder='title' type='text')
+						div(class='form-group')
+							label(for='name') first name:
+							input(class='form-control' name='name' id='name' value=data.name placeholder='name' type='text')
+						div(class='form-group')
+							label(for='surname') surname:
+							input(class='form-control' name='surname' id='surname' value=data.surname placeholder='surname' type='text')
+						div(class='form-group')
+							label(for='phonenumber') phone:
+							input(class='form-control' name='phonenumber' id='phonenumber'  value=data.phonenumber placeholder='phone' type='text' required)
+
+
+					div.col-md-6
+						div(class='form-group')
+							label(for='email') email:
+							if(data.username == "")
+								input(class='form-control' name='email' id='email' value=data.email type='text' required)
+							else 
+								input(class='form-control' name='email' id='email' value=data.email type='text' readonly="readonly")
+
+						div(class='form-group')
+							label(for='address1') address:
+							input.mb-1(class='form-control' name='address1' id='address1' value=data.address1 placeholder='' type='text' required)
+							input.mb-1(class='form-control' name='address2' id='address2' value=data.address2 placeholder='' type='text')
+							input.mb-1(class='form-control' name='address3' id='address3' value=data.address3 placeholder='' type='text')
+							input.mb-1(class='form-control' name='address4' id='address4' value=data.address4 placeholder='town/city' type='text')
+						div(class='form-group')
+							label(for='addressZip') postcode/zip:
+							input(class='form-control' name='addressZip' id='addressZip' value=data.addressZip placeholder='postcode/zip' type='text' required)
+					.col-12
+						h3 Make the deposit
+
+					div.col-md-6
+						div(class='form-group')
+							label(for='deposit') deposit:
+							input(class='form-control' name='deposit' id='deposit' placeholder='deposit (one month?)' type='text' required)
+						div(class='form-group')
+							label(for='ivatamt') ivatamt:
+							input(class='form-control' name='ivatamt' id='ivatamt' placeholder='VAT amount' type='text' required)
+
+						div(class='form-group')
+							label(for='site') site:
+							input(class='form-control' name='site' id='site' value=quote.site placeholder='site' type='text' readonly="readonly")
+						div(class='form-group')
+							label(for='sizecode') sizecode:
+							input(class='form-control' name='sizecode' id='sizecode' value=quote.sizecode placeholder='sizecode' type='text' readonly="readonly")
+						div(class='form-group')
+							label(for='imoveindate') imoveindate:
+							input(class='form-control' name='imoveindate' id='imoveindate' placeholder='YYYY-MM-DD' type='text')
+
+						div(class='form-group')
+							label(for='ipaymethod') ipaymethod:
+							input(class='form-control' name='ipaymethod' id='ipaymethod' value="worldpay" placeholder='ipaymethod' type='text')
+						div(class='form-group')
+							label(for='ipayref') ipayref:
+							input(class='form-control' name='ipayref' id='ipayref' value="creditcard" placeholder='ipayref' type='text')
+
+						div(class='form-group')
+							label(for='note') note:
+							input(class='form-control' name='note' id='note' value="online order" placeholder='note' type='text')
+					div.col-md-6
+						.row.alert.alert-warning
+							p These fields must be completed and should be similar to the Space Manager UI. There are two reservation functions. One for existing users, and one that will create a new user. 
+							p This section of the demo will also create a new user in the local database if no user is currently logged in.
+							p In a production system - the electronic collection of tthe deposit would happen around now. But in this demo, we can just submit a value and Space Manager will accept it.
+
+					div.col-md-12
+						div(class='form-group')
+							button(type="submit" class="btn btn_100w btn-primary") Reserve Unit
+
+
+
+
+	section.space-md
+		.space-md.w-90.bg-red
+			.container
+				.row.align-items-md-center
+					.col-md-6
+						.video-cover.rounded.shadow-md
+							img.img-fluid(alt='Image' src='/img/pablo-downloading.png')
+
+						//- end: Video
+					.col-md-6
+						blockquote.testimonial-block.waypoint-reveal
+							.testimonial-quote.zoom-in
+								svg(viewBox='0 0 109.253418 82.4897461' enable-background='new 0 0 500 500' xml:space='preserve')
+									path(style='fill:#fff;' d='M27.496582,82.4897461C10.6318359,82.4897461,0,67.4584961,0,46.9277344 C0,12.831543,18.3310547,0.3662109,47.2939453,0v12.831543c-13.5649414,0-22.7304688,5.4995117-25.296875,15.0317383 c-2.9331055,6.5991211-2.5664062,11.3652344-2.199707,15.03125c1.8330078-1.8330078,5.8662109-2.9326172,8.7988281-2.9326172 c12.8320312,0,21.2641602,9.1655273,21.2641602,20.8974609S40.6948242,82.4897461,27.496582,82.4897461z M87.2558594,82.4897461 c-16.8642578,0-27.8632812-15.03125-27.8632812-35.5620117C59.3925781,12.831543,78.090332,0.3662109,106.6870117,0v12.831543 c-13.1982422,0-22.3637695,5.4995117-25.296875,15.0317383c-2.5664062,6.5991211-2.5664062,11.3652344-1.8330078,15.03125 c1.8330078-1.8330078,5.4990234-2.9326172,8.7988281-2.9326172c12.465332,0,20.8974609,9.1655273,20.8974609,20.8974609 S100.4545898,82.4897461,87.2558594,82.4897461z')
+							.testimonial-block-copy.step-up
+								p.h3.font-white
+									| Their skill and expertise is great. Making a stressful day a breeze. A true partnership that's taken our business to the next level.
+							footer.step-up
+								cite Almir Pamukovic – Senior Designer, codenpixel
+						//- end: Quote

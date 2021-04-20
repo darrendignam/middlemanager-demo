@@ -5,14 +5,16 @@ var reservation = new mongoose.Schema({
     created: { type: Date, default: Date.now },
     updated: Date,
 
+    ReservationID : {type: String, trim: true},
+    reservation:{},
+
     site:{type: String, trim: true},
-    unitsize:{type: String, trim: true},
+    sizecode:{type: String, trim: true},
 
     pricePerMonth: Number,
+    pricePerWeek: Number,
 
     owner_id: Schema.ObjectId,
-    title: String,
-
 
     terms:{type: String, trim: true},
 });

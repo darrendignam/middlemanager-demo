@@ -168,6 +168,16 @@ module.exports = {
     },
 
     /**
+     * Send object parameters to the API server to create new SM customer and generate a reservation.
+     * 
+     * @param {object} post_data - Object (See https://mm.tickertape.cc/api/v1/base/WAddCustomerWithReservation) 
+     * @param {callback} callback_function- error and result
+     */
+    addCustomerWithReservation : function(post_data, callback){
+        this.post_request("/api/v1/base/WAddCustomerWithReservation", post_data, callback);
+    },
+
+    /**
      * Simple test function, just to make sure the API is running.
      * Will return immediatly and write is results into the node console.
      */
