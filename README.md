@@ -67,3 +67,14 @@ The SAP Driver running on the middleware is not responding. Either the service c
 
 ### More on errors
 It is always a good practice to sanity check the response to make sure it what you expect. Perhaps the http response is 200 but the message body is not JSON, but text from the apache or nginx server or proxy between yoy and the API.
+
+### Example .env file
+```
+PORT=3000
+MONGO_CONN_STRING='mongodb://user:pass@localhost:12345/middlemanager_demo?authSource=admin&ssl=false'
+NODE_ENV=development
+ENV_SPACE='middlemanager'
+REDISCLOUD_URL='redis://localhost:6379'
+
+MIDDLEMANAGER_URL='https://mm.tickertape.cc'
+```
