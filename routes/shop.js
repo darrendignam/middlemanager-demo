@@ -88,13 +88,13 @@ router.get('/quote/view/:quoteid', function(req, res){
 router.get('/quote/new/:siteid/unitsize/:sizecodeid', function(req, res) {
     //So to generate a quote, an anchor tag takes you here, the quote is generated - and you goto see it in your 'cart'
     mm.getAllAvaliableUnits((err,response)=>{
-		let _unit = {};
+        let _unit = {};
         let _site = {};
         let iserr = false; 
 
-		if(err){
+        if(err){
             iserr = err;
-		}else{
+        }else{
             _site = response.filter((site)=>{
                 return site.details.siteid == req.params.siteid;
             });
@@ -111,7 +111,7 @@ router.get('/quote/new/:siteid/unitsize/:sizecodeid', function(req, res) {
                     _site = _site[0];
                 }
             }
-		}
+        }
        
         if(iserr!==false){
             req.flash('error', 'There was a problem generating quote! Try again or contact us! '+iserr);

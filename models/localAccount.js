@@ -7,8 +7,8 @@ var LocalAccount = new Schema({
     spacemanager: {},
     CustomerID : {type: String, trim: true, default:''},
 
-	oauthID: String,   /* used for social media logins */
-	oauthProvider: String,
+    oauthID: String,   /* used for social media logins */
+    oauthProvider: String,
     username:
     {type: String, lowercase: true, trim: true, required: true, unique: true, minlength:5,maxlength:100,
         match : [
