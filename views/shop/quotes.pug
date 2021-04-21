@@ -19,6 +19,20 @@ block content
 								p.my-2.small.badge.badge-info="Size "+quote.sizecode
 							a.link(href=`/shop/quote/view/${quote._id}`) View Quote
 
+			.row.mt-5
+				h3 Reservations
+				each reservation,index in reservations
+					.col-12
+						.service-single
+							p=JSON.stringify(reservation)
+
+			.row.mt-5
+				h3 Orders
+				each order,index in orders
+					.col-12
+						.service-single
+							p=JSON.stringify(order)
+
 
 	section.space-sm
 		.container

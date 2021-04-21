@@ -22,11 +22,14 @@ router.get('/cart', function(req, res){
 
         LocalAccount.findById(req.user._id)
         .populate('quotes')
+        .populate('reservations')
+        .populate('orders')
         .exec((err,user)=>{
             if(err){
                 res.json(err);
             }else{
                 _quotes = user.quotes;
+
                 
                 res.render('shop/quotes', {
                     page_title: "middlemanager demo site",
@@ -37,6 +40,8 @@ router.get('/cart', function(req, res){
                     loggedin_name:  (req.user) ? req.user.nickname : '',
                     loggedin_image:  (req.user) ? req.user.profile_pic :'',
                     quotes:_quotes,
+                    reservations:user.reservations,
+                    orders:user.orders,
                     siteData:_siteData,
                     unitData:_unitData,
                 });
@@ -448,7 +453,7 @@ router.post('/order/fromquote/:quoteid', csrfProtection, function(req, res) {
                                 res.json(err);
                             }else{
                                 //TODO:             this:       req.user      might not exist right now if we add that to the route in future. passport has a way to immediatly log in new users.
-                                LocalAccount.findByIdAndUpdate(req.user._id, { $push: { reservations: new_reservation.id } }, (err, account) =>{
+                                LocalAccount.findByIdAndUpdate(req.user._id, { $push: { orders: new_order.id } }, (err, account) =>{
                                     //I could assume this has no error, and not go this deep into callback hell, and just immedietly callback with the CustomerID a level higher.
                                     if(err){
                                         res.json(err);
