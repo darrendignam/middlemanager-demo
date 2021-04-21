@@ -2,37 +2,37 @@
 
 
 header
-	nav.navbar.navbar-expand-md.fixed-top.bg-white
-		a.navbar-brand(href='/') MiddleManagerDemo
-		button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse' aria-controls='navbarCollapse' aria-expanded='false' aria-label='Toggle navigation')
-			span.navbar-toggler-icon
-		#navbarCollapse.collapse.navbar-collapse
-			ul.navbar-nav.mr-auto
-				li.nav-item.active
-					a.nav-link(href='/site/RI1GRWXX250320060000') Self Storage 
-				li.nav-item
-					a.nav-link(href='/site/RI0Z8DNB051020200001') Container Hire
-				//- li.nav-item
-				//- 	a.nav-link.disabled(href='#') Disabled
-			.mt-2.mt-md-0
-				ul.navbar-nav.mr-0
-					li.nav-item.active
-						a.nav-link(href='/shop/cart')
-							if sumQuotes > 0
-								strong
-									=`Cart (${sumQuotes})`
-							else
-								| Cart
-					if(loggedin)
-						li.nav-item
-							if loggedin_name
-								a.nav-link(href='/account')=loggedin_name
-							else 
-								a.nav-link(href='/account') Account
-						li.nav-item
-							a.nav-link(href='/account/logout') Logout
-					else 
-						li.nav-item
-							a.nav-link(href='/account/register') Join
-						li.nav-item
-							a.nav-link(href='/account/login') Login
+    nav.navbar.navbar-expand-md.fixed-top.bg-white
+        a.navbar-brand(href='/') MiddleManagerDemo
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse' aria-controls='navbarCollapse' aria-expanded='false' aria-label='Toggle navigation')
+            span.navbar-toggler-icon
+        #navbarCollapse.collapse.navbar-collapse
+            ul.navbar-nav.mr-auto
+                li.nav-item.active
+                    a.nav-link(href='/site/RI1GRWXX250320060000') Self Storage 
+                li.nav-item
+                    a.nav-link(href='/site/RI0Z8DNB051020200001') Container Hire
+                //- li.nav-item
+                //- 	a.nav-link.disabled(href='#') Disabled
+            .mt-2.mt-md-0
+                ul.navbar-nav.mr-0
+                    li.nav-item.active
+                        a.nav-link(href='/shop/cart')
+                            if sumQuotes > 0
+                                strong
+                                    =`Cart (${sumQuotes})`
+                            else
+                                | Cart
+                    if(loggedin)
+                        li.nav-item
+                            if loggedin_name
+                                a.nav-link(href='/account')=loggedin_name
+                            else 
+                                a.nav-link(href='/account') Account
+                        li.nav-item
+                            a.nav-link(href='/account/logout') Logout
+                    else 
+                        li.nav-item
+                            a.nav-link(href='/account/register') Join
+                        li.nav-item
+                            a.nav-link(href='/account/login') Login
