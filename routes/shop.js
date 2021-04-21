@@ -379,17 +379,23 @@ router.post('/order/fromquote/:quoteid', csrfProtection, function(req, res) {
                         if(err){
                             callback(err);
                         }else{
+                            console.log(unit);
                             _data_in["unit"] = unit;
-                            callback(null, _data_in);
+                            if( _data_in.unit ){
+                                console.log(_data_in.unit);
+                                callback(null, _data_in);
+                            }else{
+                                callback({"Error":"No Units found. The SIZECODE attached to this quote/order have all be rented out, but we have more under a different SIZECODE. Please call our office and we can find a comparable unit"});
+                            }
                         }
                     });
                 },
                 (_data_in,callback)=>{
                     //(3) try and push this to a new order
-                    mm.createNewContract({
+                    let order_details = {
                         customerid:         _data_in.customerid,
                         siteid:             _quote.site,
-                        unitid:             _data_in.unit.unitID,
+                        unitid:             _data_in.unit.UnitID,
                         startdate:          req.body.iStartDate,
                         chargetodate:       req.body.itodate,
                         invoicefrequency:   1,
@@ -402,11 +408,12 @@ router.post('/order/fromquote/:quoteid', csrfProtection, function(req, res) {
                         paymentref:         'CASH',
                         goodsvalue:         req.body.goodsvalue,
                         notes:              req.body.note,
-                    },(err, _contract)=>{
+                    }
+                    mm.createNewContract(order_details,(err, _contract)=>{
                         if(err){
                             callback(err);
                         }else{
-                            callback(null, _contract); //pass the contract to the final handler (below)
+                            callback(null, {contract : _contract, details : order_details}); //pass the contract to the final handler (below)
                         }
                     });
                 },
@@ -414,8 +421,47 @@ router.post('/order/fromquote/:quoteid', csrfProtection, function(req, res) {
                 if(err){
                     res.json(err);
                 }else{
+                    console.log(final_result);
                     //do something with order... display the users order page? save the order!?
-                    res.json(final_result);
+
+                    // OK, so an example of a successful response from the SpaceManager backend is not actually JSON. It's:
+                    // "SQLState: 00000SQLCode: 0ContractID: RI214L1453100"
+                    // excluding the double-quotes...... Perhaps the middleware could do this step, but for now, we do it here....
+                    // regex to the rescue
+
+                    let result_regex = /(SQLState: 00000SQLCode: 0ContractID:)\s([A-Z0-9]{1,20})/g;
+                    let orderid = result_regex.exec(final_result.contract)[2];
+                    if(orderid!=''){
+
+                        //TODO: Set the localaccount._id here at some point.
+                        let _order = new Order({
+                            OrderID:orderid,
+                            order:final_result.details,
+                            site: _quote.site,
+                            sizecode: _quote.sizecode,
+                            pricePerMonth: _quote.pricePerMonth,
+                            pricePerWeek: _quote.pricePerWeek,
+                            terms:"Add some TandC here"
+                        });
+                        _order.save((err,new_order)=>{
+                            if(err){
+                                res.json(err);
+                            }else{
+                                //TODO:             this:       req.user      might not exist right now if we add that to the route in future. passport has a way to immediatly log in new users.
+                                LocalAccount.findByIdAndUpdate(req.user._id, { $push: { reservations: new_reservation.id } }, (err, account) =>{
+                                    //I could assume this has no error, and not go this deep into callback hell, and just immedietly callback with the CustomerID a level higher.
+                                    if(err){
+                                        res.json(err);
+                                    }else{
+                                        //TODO: need a route for users to see their orders, and then redirect them there from here. Plus handle the errors all over the gaff!!
+                                        res.send('NEW ORDER: '+orderid); 
+                                    }
+                                }); 
+                            }
+                        });         
+                    }else{
+                        res.json({"error" : "SpaceManager returned an empty ID", "message" : final_result});
+                    }
                 }
             });
         }
