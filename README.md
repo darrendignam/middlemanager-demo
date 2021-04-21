@@ -57,5 +57,13 @@ API server does not recognise the function or endpoint - this is similar to a 40
 }
 ```
 
+The SAP Driver running on the middleware is not responding. Either the service crashed or didnt come up with the server.
+```
+{
+    "error": "Error: Code: -2004 Msg: Can't initialize DBCAPI",
+    "type": "connection"
+}
+```
+
 ### More on errors
 It is always a good practice to sanity check the response to make sure it what you expect. Perhaps the http response is 200 but the message body is not JSON, but text from the apache or nginx server or proxy between yoy and the API.
