@@ -158,6 +158,81 @@ module.exports = {
     },
 
     /**
+     * This helper function will perform a cascade of API calls and build an object representing the current sites and units and prices
+     * 
+     * @param {callback} callback - error and result
+     */
+         getAllAvaliableUnitsTable : function(callback){
+            this.post_request("/api/v1/base/WGetSiteDetails", {}, (err, reply)=>{
+                if(err){
+                    callback(err);
+                }else{
+                    //returns an array, so we need the array async-waterfall here to process each site in turn
+                    async([function initializer(initArray) {
+                        initArray(null, []);//prep an empty array for us to work with (in resultsArray)
+                    }].concat(reply.map(function (site) {
+                        return function (resultsArray, nextCallback) {
+                            // console.log("Site: " + site.siteid);
+                            post_wrapper("/api/v1/base/WAvailableUnits", { "iSite" : site.siteid }, (err, units)=>{
+                                if(err){
+                                    nextCallback(err); //something went wrong, could try to recover, but lets just err out
+                                }else{
+                                    //let tmp_obj = { "name" : site.SiteName, "details": site ,"units" : units }; 
+                                    const tmp_obj = {
+                                        "site.siteid"   : site.siteid,
+                                        "site.siteCode" : site.siteCode,
+                                        "site.SiteName" : site.SiteName, 
+                                        "site.Address1" : site.Address1,
+                                        "site.Address2" : site.Address2,
+                                        "site.Address3" : site.Address3,
+                                        "site.Town"     : site.Town,
+                                        "site.County" : site.County,
+                                        "site.Country" : site.Country,
+                                        "site.PostCode" : site.PostCode,
+                                        "site.Telephone" : site.Telephone,
+                                        "site.Fax" : site.Fax,
+                                        "site.ContactName" : site.ContactName,
+                                        "site.Email" : site.Email,
+                                        "site.StatusSite" : site.StatusSite,
+                                        "site.StatusDate" : site.StatusDate,
+                                    };                                    
+                                    for(let i =0; i<units.length; i++){
+                                        let _clone = JSON.parse(JSON.stringify(tmp_obj));
+                                        _clone["unit.UnitID"] = units[i].UnitID;
+                                        _clone["unit.UnitNumber"] = units[i].UnitNumber;
+                                        _clone["unit.SizeCodeID"] = units[i].SizeCodeID;
+                                        _clone["unit.SiteID"] = units[i].SiteID;
+                                        _clone["unit.Description"] = units[i].Description;
+                                        _clone["unit.Weekrate"] = units[i].Weekrate;
+                                        _clone["unit.MonthRate"] = units[i].MonthRate;
+                                        _clone["unit.PhysicalSize"] = units[i].PhysicalSize;
+                                        _clone["unit.Height"] = units[i].Height;
+                                        _clone["unit.Width"] = units[i].Width;
+                                        _clone["unit.Depth"] = units[i].Depth;
+                                        _clone["unit.ledgeritemid"] = units[i].ledgeritemid;
+                                        _clone["unit.VatCode"] = units[i].VatCode;
+                                        _clone["unit.VATRate"] = units[i].VATRate;
+
+                                        resultsArray.push(_clone);
+                                    }
+                                    
+                                    nextCallback(null, resultsArray);
+                                }
+                            });
+    
+                        }
+                    })), function (err, finalResult) {
+                        if(err){
+                            callback(err); //something went wrong, could try to recover, but lets just err out
+                        }else{
+                            callback(null, finalResult); //send the result of looping over the sites to the outer async, for final result processing
+                        }
+                    });
+                }
+            });
+        },
+
+    /**
      * Send iSite and/or iSize parameters to the API server.
      * 
      * @param {object} post_data - Object {"iSite":"id", "iSize":"id"} that will become the post vars. iSize is optional

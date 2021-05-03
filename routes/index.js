@@ -4,6 +4,8 @@ var router = express.Router();
 var mm = require('../utility/mm-wrapper');
 var _unitData = require('../utility/unit-data');
 
+const json2csv = require('json2csv').parse;
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
     mm.getAllAvaliableUnits((err,response)=>{
@@ -36,7 +38,49 @@ router.get('/', function(req, res, next) {
 
 });
 
+router.get('/all-data', function(req, res) {
+  mm.getAllAvaliableUnitsTable( function(err, response) {
+    if(err){
+      res.send(err);
+    }else{
+      res.render('data/all-data');
+    }
+  });
+});
 
+router.get('/all-json', function(req, res) {
+  mm.getAllAvaliableUnitsTable( function(err, response) {
+    if(err){
+      res.send(err);
+    }else{
+      res.json(response);
+    }
+  });
+});
+
+router.get('/all-table', function(req, res) {
+  mm.getAllAvaliableUnitsTable( function(err, response) {
+    if(err){
+      res.send(err);
+    }else{
+      res.render('data/all-table', {data:response});
+    }
+  });
+});
+
+router.get('/all-csv', function(req, res) {
+  mm.getAllAvaliableUnitsTable( function(err, response) {
+    if(err){
+      res.send(err);
+    }else{
+      const csvString = json2csv(response);  // This function blocks the Event Loop, so probably implement a download link like his in a microservice. Or create a worker process to save a CSV to the FS and
+                                             // later access thee CSV files with static anchor tag links. Check the npm docks for json2csv
+      res.setHeader('Content-disposition', 'attachment; filename=all-units.csv'); //could do something with the filename here.
+      res.set('Content-Type', 'text/csv');
+      res.status(200).send(csvString);
+    }
+  });
+});
 
 router.get('/test', function(req, res) {
   mm.getAllAvaliableUnits( function(err, response) {
