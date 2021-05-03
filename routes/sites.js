@@ -10,10 +10,10 @@ var _unitData = require('../utility/unit-data');
 router.get('/verbose/:siteid', function(req, res, next) {
     mm.getAllAvaliableUnitsVerbose((err,response)=>{
         let _site = {};
-		if(err){
+        if(err){
             _site = {};
-			//probably redirect to home, or an apology that site not found.
-		}else{
+            //probably redirect to home, or an apology that site not found.
+        }else{
             _site = response.filter((site)=>{
                 return site.details.siteid == req.params.siteid;
             });
@@ -22,20 +22,20 @@ router.get('/verbose/:siteid', function(req, res, next) {
             }else{
                 _site = _site[0];
             }
-		}
-		//send to the renderer
-		res.render('sites/site', {
-			page_title: "middlemanager demo site",
-			page_description: "Demo of using the middlemanager API to interact with the SpaceManager database",
-			page_path: req.path,
-			page_type: "website",
-			loggedin: (req.user) ? 1 : 0,
-			loggedin_name:  (req.user) ? req.user.nickname : '',
-			loggedin_image:  (req.user) ? req.user.profile_pic :'',
+        }
+        //send to the renderer
+        res.render('sites/site', {
+            page_title: "middlemanager demo site",
+            page_description: "Demo of using the middlemanager API to interact with the SpaceManager database",
+            page_path: req.path,
+            page_type: "website",
+            loggedin: (req.user) ? 1 : 0,
+            loggedin_name:  (req.user) ? req.user.nickname : '',
+            loggedin_image:  (req.user) ? req.user.profile_pic :'',
             site:_site,
             siteData:_siteData,
             unitData:_unitData,
-		});
+        });
     });
 });
 
@@ -43,10 +43,10 @@ router.get('/verbose/:siteid', function(req, res, next) {
 router.get('/:siteid', function(req, res, next) {
     mm.getAllAvaliableUnits((err,response)=>{
         let _site = {};
-		if(err){
+        if(err){
             _site = {};
-			//probably redirect to home, or an apology that site not found.
-		}else{
+            //probably redirect to home, or an apology that site not found.
+        }else{
             _site = response.filter((site)=>{
                 return site.details.siteid == req.params.siteid;
             });
@@ -55,33 +55,33 @@ router.get('/:siteid', function(req, res, next) {
             }else{
                 _site = _site[0];
             }
-		}
-		//send to the renderer
-		res.render('sites/site', {
-			page_title: "middlemanager demo site",
-			page_description: "Demo of using the middlemanager API to interact with the SpaceManager database",
-			page_path: req.path,
-			page_type: "website",
-			loggedin: (req.user) ? 1 : 0,
-			loggedin_name:  (req.user) ? req.user.nickname : '',
-			loggedin_image:  (req.user) ? req.user.profile_pic :'',
+        }
+        //send to the renderer
+        res.render('sites/site', {
+            page_title: "middlemanager demo site",
+            page_description: "Demo of using the middlemanager API to interact with the SpaceManager database",
+            page_path: req.path,
+            page_type: "website",
+            loggedin: (req.user) ? 1 : 0,
+            loggedin_name:  (req.user) ? req.user.nickname : '',
+            loggedin_image:  (req.user) ? req.user.profile_pic :'',
             site:_site,
             siteData:_siteData,
             unitData:_unitData,
-		});
+        });
     });
 });
 
 /* GET unit page. */
 router.get('/:siteid/unitsize/:sizecodeid', function(req, res, next) {
     mm.getAllAvaliableUnits((err,response)=>{
-		let _unit = {};
+        let _unit = {};
         let _site = {};
-		if(err){
-			_unit = {};
+        if(err){
+            _unit = {};
             _site = {};
-			//probably redirect to home, or an apology that unit not found.
-		}else{
+            //probably redirect to home, or an apology that unit not found.
+        }else{
             _site = response.filter((site)=>{
                 return site.details.siteid == req.params.siteid;
             });
@@ -100,25 +100,25 @@ router.get('/:siteid/unitsize/:sizecodeid', function(req, res, next) {
                     _site = _site[0];
                 }
             }
-		}
+        }
        
 
         //res.send("SITE: " + req.params.siteid + "SIZE: " + req.params.sizecodeid);
 
-		//send to the renderer
-		res.render('sites/unit', {
-			page_title: "middlemanager demo site",
-			page_description: "Demo of using the middlemanager API to interact with the SpaceManager database",
-			page_path: req.path,
-			page_type: "website",
-			loggedin: (req.user) ? 1 : 0,
-			loggedin_name:  (req.user) ? req.user.nickname : '',
-			loggedin_image:  (req.user) ? req.user.profile_pic :'',
+        //send to the renderer
+        res.render('sites/unit', {
+            page_title: "middlemanager demo site",
+            page_description: "Demo of using the middlemanager API to interact with the SpaceManager database",
+            page_path: req.path,
+            page_type: "website",
+            loggedin: (req.user) ? 1 : 0,
+            loggedin_name:  (req.user) ? req.user.nickname : '',
+            loggedin_image:  (req.user) ? req.user.profile_pic :'',
             site:_site,
-			unit:_unit,
+            unit:_unit,
             siteData:_siteData,
             unitData:_unitData,
-		});
+        });
     });
 });
 

@@ -3,6 +3,7 @@
 Full Demo application of connecting to and using the middleware software.
 
 ## Example .env file (example values too)
+```
 PORT=3000
 NODE_ENV='dvelopment'
 ENV_SPACE='middlemanager'
@@ -10,6 +11,7 @@ MONGO_CONN_STRING='mongodb://mongouser:mongopassword@127.0.0.1:12354/middlemanag
 REDISCLOUD_URL='redis:127.0.0.1:6379'
 MIDDLEMANAGER_URL='127.0.0.1:3001'
 MIDDLEMANAGER_KEY='54321'
+```
 
 ## Response Errors:
 If the API request cannot be made, because the API server times out (or the connection details are incorrect) the following error is passed to the callback. You may not want to present these errors in a live system, but can be used when debugging new installations.

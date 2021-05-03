@@ -3,105 +3,105 @@ extends ../layout
 block content
 
 
-	section.space-sm
-		.container
-			.row.alert.alert-info
-				p Hurry and turn this <strong>quote</strong> into an <strong>order</strong> today! {xyz} days before the quote expires!
-			
+    section.space-sm
+        .container
+            .row.alert.alert-info
+                p Hurry and turn this <strong>quote</strong> into an <strong>order</strong> today! {xyz} days before the quote expires!
+            
 
-	section.space-md.imageBG.bg-light(data-img="/img/home-bg-27.png")
-		.container
-			.row
-				.col-12
-					h2.contact-title= `${unitData(quote.sizecode).name}`
-					h2= `£${parseFloat(quote.pricePerMonth).toFixed(2)} /month`
-					p= `£${parseFloat(quote.pricePerWeek).toFixed(2)} /week`
-					div
-						a.btn.btn-primary.mr-2(href=`/shop/reservation/fromquote/${quote.id}`) Make Reservation
-						a.btn.btn-primary.mr-2(href=`/shop/order/fromquote/${quote.id}`) Make Booking
-				.col-lg-8
-					//- div= `${parseInt(unit.PhysicalSize)}`
-					//- p= unit.Description
-					div
-						img.card-img(src=unitData(quote.sizecode).image alt=unitData(quote.sizecode).name)
+    section.space-md.imageBG.bg-light(data-img="/img/home-bg-27.png")
+        .container
+            .row
+                .col-12
+                    h2.contact-title= `${unitData(quote.sizecode).name}`
+                    h2= `£${parseFloat(quote.pricePerMonth).toFixed(2)} /month`
+                    p= `£${parseFloat(quote.pricePerWeek).toFixed(2)} /week`
+                    div
+                        a.btn.btn-primary.mr-2(href=`/shop/reservation/fromquote/${quote.id}`) Make Reservation
+                        a.btn.btn-primary.mr-2(href=`/shop/order/fromquote/${quote.id}`) Make Booking
+                .col-lg-8
+                    //- div= `${parseInt(unit.PhysicalSize)}`
+                    //- p= unit.Description
+                    div
+                        img.card-img(src=unitData(quote.sizecode).image alt=unitData(quote.sizecode).name)
 
-				.col-lg-4
-					.media.contact-info
-						span.contact-info__icon
-						i.ti-home
-						.media-body
-							a.link(href=`/site/${quote.site}`)
-								h3 View Site Page
-							//- p= `${site.details.Address1} - ${site.details.PostCode}`
-							p.my-2.small.badge.badge-info="Site "+quote.site
-							p.my-2.small.badge.badge-info="Size "+quote.sizecode
-					.media.contact-info
-						span.contact-info__icon
-						i.ti-tablet
-						.media-body
-							//- h3= site.details.Telephone
-							p Mon to Fri 9am to 7pm
-					.media.contact-info
-						span.contact-info__icon
-						i.ti-email
-						.media-body
-							//- h3= site.details.Email
-							p Send us your query anytime!
+                .col-lg-4
+                    .media.contact-info
+                        span.contact-info__icon
+                        i.ti-home
+                        .media-body
+                            a.link(href=`/site/${quote.site}`)
+                                h3 View Site Page
+                            //- p= `${site.details.Address1} - ${site.details.PostCode}`
+                            p.my-2.small.badge.badge-info="Site "+quote.site
+                            p.my-2.small.badge.badge-info="Size "+quote.sizecode
+                    .media.contact-info
+                        span.contact-info__icon
+                        i.ti-tablet
+                        .media-body
+                            //- h3= site.details.Telephone
+                            p Mon to Fri 9am to 7pm
+                    .media.contact-info
+                        span.contact-info__icon
+                        i.ti-email
+                        .media-body
+                            //- h3= site.details.Email
+                            p Send us your query anytime!
 
 
 
-	section.space-sm
-		.container
-			.row
-				div#map(style="width: 100%; height: 580px")
+    section.space-sm
+        .container
+            .row
+                div#map(style="width: 100%; height: 580px")
 
-	section.space-md
-		.space-md.w-90.bg-red
-			.container
-				.row.align-items-md-center
-					.col-md-6
-						.video-cover.rounded.shadow-md
-							img.img-fluid(alt='Image' src='/img/pablo-downloading.png')
+    section.space-md
+        .space-md.w-90.bg-red
+            .container
+                .row.align-items-md-center
+                    .col-md-6
+                        .video-cover.rounded.shadow-md
+                            img.img-fluid(alt='Image' src='/img/pablo-downloading.png')
 
-						//- end: Video
-					.col-md-6
-						blockquote.testimonial-block.waypoint-reveal
-							.testimonial-quote.zoom-in
-								svg(viewBox='0 0 109.253418 82.4897461' enable-background='new 0 0 500 500' xml:space='preserve')
-									path(style='fill:#fff;' d='M27.496582,82.4897461C10.6318359,82.4897461,0,67.4584961,0,46.9277344 C0,12.831543,18.3310547,0.3662109,47.2939453,0v12.831543c-13.5649414,0-22.7304688,5.4995117-25.296875,15.0317383 c-2.9331055,6.5991211-2.5664062,11.3652344-2.199707,15.03125c1.8330078-1.8330078,5.8662109-2.9326172,8.7988281-2.9326172 c12.8320312,0,21.2641602,9.1655273,21.2641602,20.8974609S40.6948242,82.4897461,27.496582,82.4897461z M87.2558594,82.4897461 c-16.8642578,0-27.8632812-15.03125-27.8632812-35.5620117C59.3925781,12.831543,78.090332,0.3662109,106.6870117,0v12.831543 c-13.1982422,0-22.3637695,5.4995117-25.296875,15.0317383c-2.5664062,6.5991211-2.5664062,11.3652344-1.8330078,15.03125 c1.8330078-1.8330078,5.4990234-2.9326172,8.7988281-2.9326172c12.465332,0,20.8974609,9.1655273,20.8974609,20.8974609 S100.4545898,82.4897461,87.2558594,82.4897461z')
-							.testimonial-block-copy.step-up
-								p.h3.font-white
-									| Their skill and expertise is great. Making a stressful day a breeze. A true partnership that's taken our business to the next level.
-							footer.step-up
-								cite Almir Pamukovic – Senior Designer, codenpixel
-						//- end: Quote
+                        //- end: Video
+                    .col-md-6
+                        blockquote.testimonial-block.waypoint-reveal
+                            .testimonial-quote.zoom-in
+                                svg(viewBox='0 0 109.253418 82.4897461' enable-background='new 0 0 500 500' xml:space='preserve')
+                                    path(style='fill:#fff;' d='M27.496582,82.4897461C10.6318359,82.4897461,0,67.4584961,0,46.9277344 C0,12.831543,18.3310547,0.3662109,47.2939453,0v12.831543c-13.5649414,0-22.7304688,5.4995117-25.296875,15.0317383 c-2.9331055,6.5991211-2.5664062,11.3652344-2.199707,15.03125c1.8330078-1.8330078,5.8662109-2.9326172,8.7988281-2.9326172 c12.8320312,0,21.2641602,9.1655273,21.2641602,20.8974609S40.6948242,82.4897461,27.496582,82.4897461z M87.2558594,82.4897461 c-16.8642578,0-27.8632812-15.03125-27.8632812-35.5620117C59.3925781,12.831543,78.090332,0.3662109,106.6870117,0v12.831543 c-13.1982422,0-22.3637695,5.4995117-25.296875,15.0317383c-2.5664062,6.5991211-2.5664062,11.3652344-1.8330078,15.03125 c1.8330078-1.8330078,5.4990234-2.9326172,8.7988281-2.9326172c12.465332,0,20.8974609,9.1655273,20.8974609,20.8974609 S100.4545898,82.4897461,87.2558594,82.4897461z')
+                            .testimonial-block-copy.step-up
+                                p.h3.font-white
+                                    | Their skill and expertise is great. Making a stressful day a breeze. A true partnership that's taken our business to the next level.
+                            footer.step-up
+                                cite Almir Pamukovic – Senior Designer, codenpixel
+                        //- end: Quote
 
 
 block footer
-	script(src = "https://unpkg.com/leaflet@1.7.1/dist/leaflet.js")
-	script.
-		// Creating map options
-		var mapOptions = {
-			center: [53.79082351205316, -1.5851590987572806],
-			zoom: 17,
-			scrollWheelZoom: false
-		}
-		// Creating a map object
-		var map = new L.map('map', mapOptions);
-		// Creating a Layer object
-		var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-		L.marker([53.79082351205316, -1.5851590987572806]).addTo(map)
-		.bindPopup("<b>We are located here!</b><br /><a target='_BLANK' href='https://www.google.com/maps/dir/?api=1&destination=53.79082351205316,-1.5851590987572806'>Get Directions!</a>").openPopup();
-		// Adding layer to the map
-		map.addLayer(layer);
-		map.on('click', function() {
-			if (!map.scrollWheelZoom.enabled()) {
-				map.scrollWheelZoom.enable();
-			}
-			else {
-				//- map.scrollWheelZoom.enable();
-			}
-		});
+    script(src = "https://unpkg.com/leaflet@1.7.1/dist/leaflet.js")
+    script.
+        // Creating map options
+        var mapOptions = {
+            center: [53.79082351205316, -1.5851590987572806],
+            zoom: 17,
+            scrollWheelZoom: false
+        }
+        // Creating a map object
+        var map = new L.map('map', mapOptions);
+        // Creating a Layer object
+        var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+        L.marker([53.79082351205316, -1.5851590987572806]).addTo(map)
+        .bindPopup("<b>We are located here!</b><br /><a target='_BLANK' href='https://www.google.com/maps/dir/?api=1&destination=53.79082351205316,-1.5851590987572806'>Get Directions!</a>").openPopup();
+        // Adding layer to the map
+        map.addLayer(layer);
+        map.on('click', function() {
+            if (!map.scrollWheelZoom.enabled()) {
+                map.scrollWheelZoom.enable();
+            }
+            else {
+                //- map.scrollWheelZoom.enable();
+            }
+        });
 
-	//- h1= title
-	//- p Welcome to #{title}
+    //- h1= title
+    //- p Welcome to #{title}
