@@ -68,4 +68,4 @@ The SAP Driver running on the middleware is not responding. Either the service c
 ```
 
 ### More on errors
-It is always a good practice to sanity check the response to make sure it what you expect. Perhaps the http response is 200 but the message body is not JSON, but text from the apache or nginx server or proxy between yoy and the API.
+It is always a good practice to sanity check the response to make sure it what you expect. Perhaps the http response is 200 but the message body is not JSON, but text from the apache or nginx server or proxy between you and the API.
